@@ -3,7 +3,7 @@
 Windows 用の予定・タスク通知アプリ **TaskReminder** を、接続先が無い場所でも試せるようにするための
 ダミーデータを GitHub Pages で配信しています。
 
-**公開先** https://msmsrep.github.io/TaskBoard-Notify-/
+**公開先** https://msmsrep.github.io/TaskBoard-Notify/
 
 アプリ側は接続先も解析方法もコードに書かれておらず、定義ファイル `sources.json` の内容どおりに動きます。
 そのため、**定義ファイルを差し替えるだけ**でここのデータを読ませられます。

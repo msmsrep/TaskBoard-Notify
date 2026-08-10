@@ -19,7 +19,7 @@
     "Name": "独自の予定一覧(リスト構造)",
     "Kind": "Html",
     "Credential": "None",
-    "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify-",
+    "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify",
     "Request": {
       "Url": "{Base}/schedule/custom.html",
       "Method": "GET"
@@ -41,7 +41,7 @@
     "Name": "独自のタスクAPI(別形式のJSON)",
     "Kind": "Json",
     "Credential": "None",
-    "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify-",
+    "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify",
     "Request": {
       "Url": "{Base}/api/custom-tasks.json?date={Today:yyyy-MM-dd}",
       "Method": "GET"

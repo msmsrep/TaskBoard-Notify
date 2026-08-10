@@ -23,7 +23,7 @@
     "Name": "テスト予定(GitHub Pages)",
     "Kind": "Html",
     "Credential": "None",
-    "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify-",
+    "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify",
     "Request": {
       "Url": "{Base}/schedule/day.html?date={Today:yyyy-MM-dd}",
       "Method": "GET"
@@ -50,7 +50,7 @@
     "Name": "テストタスク(GitHub Pages)",
     "Kind": "Json",
     "Credential": "None",
-    "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify-",
+    "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify",
     "Request": {
       "Url": "{Base}/api/tasks.json?date={Today:yyyy-MM-dd}",
       "Method": "GET"
