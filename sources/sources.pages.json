@@ -1,0 +1,71 @@
+// TaskReminder 接続先の定義（GitHub Pages のテストサイト用）
+//
+// 使い方
+//   1. アプリの「設定」→「定義ファイルを開く」で sources.json を開く
+//   2. 中身をこのファイルの内容で置き換えて保存
+//   3. 「再読み込み」（アプリの再起動は不要）
+//
+// 元の定義は先に控えておいてください（社内サーバーの設定に戻すため）。
+//
+// GitHub Pages は静的配信のため、次の点だけ既定の定義と変えています。
+//   - ログイン（POST）は使えないので "Login" は書かない
+//   - 取得は "GET" のみ（プリザンターの POST + 絞り込み条件は送れない）
+//   - 認証は不要なので "Credential": "None"
+//   - {Base} はテストサイトのURL。URLの ?date={Today:yyyy-MM-dd} は
+//     配信側では無視されますが、置き換え文字が効いているかの確認になります
+{
+  "Version": 1,
+
+  // ------------------------------------------------------------------
+  // 予定 : HTMLページを読む（既定の業務デザイナーと同じ解析方法）
+  // ------------------------------------------------------------------
+  "Schedule": {
+    "Name": "テスト予定(GitHub Pages)",
+    "Kind": "Html",
+    "Credential": "None",
+    "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify-",
+    "Request": {
+      "Url": "{Base}/schedule/day.html?date={Today:yyyy-MM-dd}",
+      "Method": "GET"
+    },
+    "Html": {
+      "RowSelector": ".aligned.inCompany",
+      "IssueId": { "Attribute": "data-href", "Prefix": "{Base}" },
+      "Title": { "Cell": 1 },
+      "Time": { "Cell": 0, "Split": "～", "SplitIndex": 0, "Prefix": "{Today} " }
+    },
+    // これから始まる予定だけ通知する。
+    // 過去分も含めてすぐ通知を見たいときは false にする（過去の時刻は即時に通知されます）
+    "OnlyFuture": true,
+    "ReplaceAll": false,
+    "IntervalSeconds": 300,
+    "RunTimes": "",
+    "NoticeMinutesBefore": 10
+  },
+
+  // ------------------------------------------------------------------
+  // タスク : JSONを読む（既定のプリザンターと同じ解析方法）
+  // ------------------------------------------------------------------
+  "Tasks": {
+    "Name": "テストタスク(GitHub Pages)",
+    "Kind": "Json",
+    "Credential": "None",
+    "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify-",
+    "Request": {
+      "Url": "{Base}/api/tasks.json?date={Today:yyyy-MM-dd}",
+      "Method": "GET"
+    },
+    "Json": {
+      "ArrayPath": "Response.Data",
+      "IssueId": { "Path": "IssueId", "Prefix": "{Base}/items/detail.html?type=task&id=" },
+      "Title": { "Path": "Title" },
+      "Time": { "Path": "CompletionTime", "AsDateTime": true }
+    },
+    "OnlyFuture": false,
+    // 取得のたびに全件を通知し直す
+    "ReplaceAll": true,
+    "IntervalSeconds": 60,
+    "RunTimes": "",
+    "NoticeMinutesBefore": 10
+  }
+}

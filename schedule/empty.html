@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>個人日別予定 0件（テスト用）</title>
+<style>
+  body { font-family: "Segoe UI", "Meiryo", sans-serif; margin: 2rem; color: #222; background: #fff; }
+  h1 { font-size: 1.2rem; }
+  p.note { color: #666; font-size: .85rem; }
+  table { border-collapse: collapse; margin-top: 1rem; }
+  th, td { border: 1px solid #ccc; padding: .35rem .8rem; font-size: .9rem; }
+  th { background: #f2f4f7; }
+</style>
+</head>
+<body>
+<!--
+  予定が1件も無いページ。
+  「取得は成功するが0件」のときにエラーにならないこと（通知も出ないこと）の確認用です。
+  対象外クラスの行だけを置いています。
+-->
+<h1>個人日別予定（0件）</h1>
+<p class="note">取得成功・0件の確認用です。<code>.aligned.inCompany</code> の行はありません。</p>
+
+<table class="scheduleTable">
+  <thead>
+    <tr><th>時間</th><th>件名</th><th>場所</th></tr>
+  </thead>
+  <tbody>
+    <tr class="aligned outCompany" data-href="/items/detail.html?type=schedule&amp;id=9002">
+      <td>09:00～10:00</td><td>社外の予定（取得対象外）</td><td>-</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="note"><a href="../index.html">テストサイトの説明へ戻る</a></p>
+</body>
+</html>

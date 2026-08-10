@@ -1,0 +1,63 @@
+// TaskReminder 接続先の定義（GitHub Pages / 独自形式の確認用）
+//
+// 既定（表形式のHTML・プリザンターのJSON）とは、項目名も構造も違う相手を
+// コードを変えずに定義ファイルだけで扱えることの確認に使います。
+//
+//   予定 : ul/li のリスト構造を、行内セレクタで取り出す
+//   タスク: 配列の位置も項目名も違うJSON（result.list / id / subject / due_date）
+//
+// そのままでは認証なし（"Credential": "None"）で動きます。
+// APIキーの扱いを試したいときは Tasks の "Credential" を "ApiKey" にして、
+// コメントにしてある "Headers" の行を戻してください。
+//   - 「設定」画面でAPIキーを未登録なら「APIキーが未登録です」で止まります（メッセージの確認用）
+//   - 登録済みなら Authorization ヘッダーを付けて取得します
+//     （GitHub Pages 側では検証されないため、中身が正しいかは確認できません）
+{
+  "Version": 1,
+
+  "Schedule": {
+    "Name": "独自の予定一覧(リスト構造)",
+    "Kind": "Html",
+    "Credential": "None",
+    "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify-",
+    "Request": {
+      "Url": "{Base}/schedule/custom.html",
+      "Method": "GET"
+    },
+    "Html": {
+      "RowSelector": "li.task",
+      "IssueId": { "Attribute": "data-id", "Prefix": "{Base}/items/detail.html?type=schedule&id=" },
+      "Title": { "Selector": ".name" },
+      "Time": { "Selector": ".when" }
+    },
+    "OnlyFuture": false,
+    "ReplaceAll": false,
+    "IntervalSeconds": 300,
+    "RunTimes": "",
+    "NoticeMinutesBefore": 10
+  },
+
+  "Tasks": {
+    "Name": "独自のタスクAPI(別形式のJSON)",
+    "Kind": "Json",
+    "Credential": "None",
+    "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify-",
+    "Request": {
+      "Url": "{Base}/api/custom-tasks.json?date={Today:yyyy-MM-dd}",
+      "Method": "GET"
+      // "Headers": { "Authorization": "Bearer {ApiKey}" }
+    },
+    "Json": {
+      "ArrayPath": "result.list",
+      "IssueId": { "Path": "id", "Prefix": "{Base}/items/detail.html?type=task&id=" },
+      "Title": { "Path": "subject" },
+      // 日時の書式を指定して取り込む
+      "Time": { "Path": "due_date", "Format": "yyyy/MM/dd HH:mm" }
+    },
+    "OnlyFuture": false,
+    "ReplaceAll": true,
+    "IntervalSeconds": 60,
+    "RunTimes": "",
+    "NoticeMinutesBefore": 10
+  }
+}

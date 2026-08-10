@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>タスク一覧（リスト形式・テスト用）</title>
+<style>
+  body { font-family: "Segoe UI", "Meiryo", sans-serif; margin: 2rem; color: #222; background: #fff; }
+  h1 { font-size: 1.2rem; }
+  p.note { color: #666; font-size: .85rem; }
+  ul.task-list { list-style: none; padding: 0; max-width: 32rem; }
+  li { border: 1px solid #ccc; border-radius: 6px; padding: .5rem .8rem; margin-bottom: .4rem; font-size: .9rem; }
+  li.note { color: #999; background: #fafafa; }
+  .when { display: inline-block; width: 11rem; color: #444; }
+  .name { font-weight: 600; }
+</style>
+</head>
+<body>
+<!--
+  表(table)ではなくリスト(ul/li)で組まれたページ。
+  既定とは別の構造でも、定義ファイルの書き換えだけで取り込めることの確認用です。
+
+    RowSelector : li.task
+    IssueId     : data-id 属性
+    Title       : 行内セレクタ .name
+    Time        : 行内セレクタ .when（"yyyy/MM/dd HH:mm" をそのまま持つ）
+
+  こちらは時刻を日付ごと持っています（アプリ側で {Today} を前置しません）。
+  日付は tools/generate.mjs が当日に書き換えます。
+-->
+<h1>タスク一覧（リスト形式のダミーページ）</h1>
+<p class="note">既定（表形式）とは違う構造のページです。行内セレクタでの項目取り出しの確認に使います。</p>
+
+<ul class="task-list">
+  <li class="task" data-id="A-1"><span class="when">2026/08/10 18:00</span><span class="name">打合せ</span></li>
+  <li class="task" data-id="A-2"><span class="when">2026/08/10 19:30</span><span class="name">レビュー</span></li>
+  <li class="task" data-id="A-3"><span class="when">2026/08/10 21:00</span><span class="name">週次の報告</span></li>
+  <li class="note">これは取得対象外の行です</li>
+</ul>
+
+<p class="note"><a href="../index.html">テストサイトの説明へ戻る</a></p>
+</body>
+</html>

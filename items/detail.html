@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>明細（テスト用）</title>
+<style>
+  body { font-family: "Segoe UI", "Meiryo", sans-serif; margin: 2rem; color: #222; background: #fff; }
+  h1 { font-size: 1.2rem; }
+  .card { border: 1px solid #ccc; border-radius: 8px; padding: 1rem 1.2rem; max-width: 32rem; }
+  dl { display: grid; grid-template-columns: 7rem 1fr; gap: .4rem 1rem; margin: 0; font-size: .9rem; }
+  dt { color: #666; }
+  dd { margin: 0; font-weight: 600; }
+  p.note { color: #666; font-size: .85rem; }
+  code { background: #f2f4f7; padding: .1rem .3rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+<!--
+  トースト通知の「ページを開く」から開かれるページ。
+  IssueId に組み立てたURLが正しく渡っているか（クリックでブラウザが開くか）の確認用です。
+  実データは持たず、クエリ文字列をそのまま表示します。
+-->
+<h1>明細（TaskReminder テスト用）</h1>
+
+<div class="card">
+  <dl>
+    <dt>種別</dt><dd id="type">-</dd>
+    <dt>ID</dt><dd id="id">-</dd>
+    <dt>開いた時刻</dt><dd id="opened">-</dd>
+  </dl>
+</div>
+
+<p class="note">
+  このページが開けば、トーストの <code>action</code> 引数に組み立てたURLがそのまま渡っています。<br>
+  <a href="../index.html">テストサイトの説明へ戻る</a>
+</p>
+
+<script>
+  const q = new URLSearchParams(location.search);
+  const label = { schedule: "予定", task: "タスク" };
+  document.getElementById("type").textContent = label[q.get("type")] ?? (q.get("type") ?? "不明");
+  document.getElementById("id").textContent = q.get("id") ?? "指定なし";
+  document.getElementById("opened").textContent = new Date().toLocaleString("ja-JP");
+</script>
+</body>
+</html>

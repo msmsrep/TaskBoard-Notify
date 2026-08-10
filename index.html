@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TaskReminder テストサイト</title>
+<style>
+  :root { color-scheme: light dark; --fg: #1c1f23; --muted: #5d646d; --line: #d7dce2; --bg: #fff; --card: #f7f9fb; --accent: #1f6feb; --ok: #1a7f37; --ng: #b42318; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg: #e6e9ee; --muted: #9aa4b0; --line: #303740; --bg: #14171c; --card: #1b1f26; --accent: #6ea8fe; --ok: #4ac26b; --ng: #ff7b72; }
+  }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", "Meiryo", sans-serif; margin: 0 auto; padding: 2rem 1.2rem 4rem; max-width: 56rem; color: var(--fg); background: var(--bg); line-height: 1.7; }
+  h1 { font-size: 1.5rem; margin-bottom: .2rem; }
+  h2 { font-size: 1.1rem; margin-top: 2.4rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+  h3 { font-size: .95rem; margin-bottom: .3rem; }
+  p, li { font-size: .92rem; }
+  .lead { color: var(--muted); }
+  code { background: var(--card); padding: .1rem .35rem; border-radius: 4px; font-size: .86rem; }
+  pre { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; }
+  table { border-collapse: collapse; width: 100%; margin-top: .6rem; }
+  th, td { border: 1px solid var(--line); padding: .4rem .6rem; font-size: .85rem; text-align: left; vertical-align: top; }
+  th { background: var(--card); white-space: nowrap; }
+  .wrap { overflow-x: auto; }
+  a { color: var(--accent); }
+  .ok { color: var(--ok); font-weight: 600; }
+  .ng { color: var(--ng); font-weight: 600; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: .8rem 1rem; }
+  button { font: inherit; font-size: .85rem; padding: .35rem .8rem; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  ul.plain { padding-left: 1.2rem; }
+</style>
+</head>
+<body>
+
+<h1>TaskReminder テストサイト</h1>
+<p class="lead">
+  接続先が無い場所でも <strong>TaskReminder 本体アプリ</strong>の取得・解析・トースト通知を試せるように、
+  実サーバーの応答を模した固定データを GitHub Pages で配信しています。
+  アプリ側は <code>sources.json</code> を書き換えるだけで、ここに向けられます。
+</p>
+
+<h2>配信しているデータ</h2>
+<div class="wrap">
+<table>
+  <thead><tr><th>URL</th><th>形式</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td><a href="schedule/day.html">schedule/day.html</a></td><td>HTML</td><td>日別予定。<code>.aligned.inCompany</code> の行が12件、朝から深夜まで（対象外の行も1件混ぜてあります）</td></tr>
+    <tr><td><a href="schedule/empty.html">schedule/empty.html</a></td><td>HTML</td><td>0件のページ（取得成功・通知なしの確認）</td></tr>
+    <tr><td><a href="schedule/custom.html">schedule/custom.html</a></td><td>HTML</td><td>表ではなくリスト構造（行内セレクタの確認）</td></tr>
+    <tr><td><a href="api/tasks.json">api/tasks.json</a></td><td>JSON</td><td>プリザンター形式（<code>Response.Data</code>）。日付は毎日その日に更新されます</td></tr>
+    <tr><td><a href="api/tasks-empty.json">api/tasks-empty.json</a></td><td>JSON</td><td>0件の応答</td></tr>
+    <tr><td><a href="api/tasks-missing-field.json">api/tasks-missing-field.json</a></td><td>JSON</td><td><code>CompletionTime</code> が欠けた応答（解析失敗になること）</td></tr>
+    <tr><td><a href="api/broken.json">api/broken.json</a></td><td>JSON以外</td><td>JSONとして壊れた応答（解析失敗になること）</td></tr>
+    <tr><td><a href="api/custom-tasks.json">api/custom-tasks.json</a></td><td>JSON</td><td>項目名も配列の位置も違う独自形式（<code>result.list</code>）</td></tr>
+    <tr><td><a href="items/detail.html?type=task&amp;id=3001">items/detail.html</a></td><td>HTML</td><td>トーストの「ページを開く」の遷移先</td></tr>
+    <tr><td>存在しないURL</td><td>-</td><td>404 を返すので「取得失敗」の確認に使えます</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>アプリのつなぎ方</h2>
+<ol>
+  <li>アプリの「設定」→「定義ファイルを開く」で <code>sources.json</code> を開く<br>
+      <span class="lead">（保存先は <code>%LOCALAPPDATA%\TaskReminder\sources.json</code>、MSIX版は LocalState）</span></li>
+  <li>元の内容を控えてから、下の定義で置き換えて保存</li>
+  <li>設定画面の「再読み込み」を押す（アプリの再起動は不要）</li>
+  <li>戻すときは控えた内容に書き戻すか、ファイルを削除して再起動（App.config から作り直されます）</li>
+</ol>
+
+<h3>貼り付け用の定義</h3>
+<p class="lead">
+  <a href="sources/sources.pages.json">sources/sources.pages.json</a>（既定と同じ解析方法）／
+  <a href="sources/sources.custom.json">sources/sources.custom.json</a>（独自形式）
+  <button id="copy" type="button">上の定義をコピー</button>
+  <span id="copied" class="ok" hidden>コピーしました</span>
+</p>
+
+<h2>GitHub Pages ならではの制限</h2>
+<div class="card">
+  <ul class="plain">
+    <li><strong>GET だけ</strong>。静的配信なので POST は使えません（POST を指定すると取得失敗になります）</li>
+    <li><strong>ログインできません</strong>。定義から <code>"Login"</code> を外し、<code>"Credential": "None"</code> にします</li>
+    <li><strong>絞り込み条件は送れません</strong>。プリザンターの <code>View</code> のような本文は送っても無視されます</li>
+    <li><strong>ヘッダーは検証されません</strong>。<code>Authorization</code> を付けても素通りします（未登録時のメッセージ確認には使えます）</li>
+    <li>URL の <code>?date={Today:yyyy-MM-dd}</code> は無視されますが、置き換え文字が効いているかの確認になります</li>
+  </ul>
+  <p class="lead" style="margin-bottom:0">
+    ログイン・POST・Cookie・APIキーの中身まで確認したい場合は、本体リポジトリの擬似サーバー
+    （<code>dotnet run --project Tests/TaskReminder.TestConsole -- server</code>）を使ってください。
+  </p>
+</div>
+
+<h2>取得できるはずの内容</h2>
+<p class="lead">このページからも同じURLを読んで、アプリが組み立てるはずの値を表示します。</p>
+<div id="check" class="wrap"></div>
+
+<h2>データの更新</h2>
+<p>
+  HTMLのページは時刻だけを持ち、日付はアプリ側が <code>{Today}</code> で補うため、いつ読んでも「当日の予定」になります。<br>
+  JSON の日付は GitHub Actions が毎日作り直しています（<code>tools/generate.mjs</code>）。
+</p>
+
+<hr style="border:0;border-top:1px solid var(--line);margin:2.5rem 0 1rem">
+<p class="lead" style="font-size:.82rem">
+  ここにあるのは動作確認用の作り話のデータです。実在の予定・タスク・接続先は含みません。
+</p>
+
+<script>
+const BASE = location.href.replace(/\/[^/]*$/, "");
+const today = new Date();
+const pad = n => String(n).padStart(2, "0");
+const todayStr = `${today.getFullYear()}/${pad(today.getMonth() + 1)}/${pad(today.getDate())}`;
+
+// 定義ファイルと同じ組み立て方を、確認用に再現しています
+async function run() {
+  const out = [];
+
+  // --- 予定 (HTML) ---
+  try {
+    const html = await (await fetch("schedule/day.html", { cache: "no-store" })).text();
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    const rows = [...doc.querySelectorAll(".aligned.inCompany")].map(tr => {
+      const cells = tr.querySelectorAll("td, th");
+      return {
+        IssueId: BASE + tr.getAttribute("data-href"),
+        Title: cells[1].textContent.trim(),
+        Time: `${todayStr} ${cells[0].textContent.split("～")[0].trim()}`
+      };
+    });
+    const future = rows.filter(r => new Date(r.Time.replace(/\//g, "-")) >= new Date());
+    out.push(section("予定 : schedule/day.html", rows, `全 ${rows.length} 件 / これから始まる予定 ${future.length} 件`));
+  } catch (e) {
+    out.push(`<p class="ng">予定の取得に失敗しました: ${e.message}</p>`);
+  }
+
+  // --- タスク (JSON) ---
+  try {
+    const json = await (await fetch("api/tasks.json", { cache: "no-store" })).json();
+    const rows = json.Response.Data.map(x => ({
+      IssueId: `${BASE}/items/detail.html?type=task&id=${x.IssueId}`,
+      Title: x.Title,
+      Time: x.CompletionTime.replace("T", " ").replace(/-/g, "/").slice(0, 16)
+    }));
+    out.push(section("タスク : api/tasks.json", rows, `全 ${rows.length} 件（毎回すべて通知し直す設定）`));
+  } catch (e) {
+    out.push(`<p class="ng">タスクの取得に失敗しました: ${e.message}</p>`);
+  }
+
+  document.getElementById("check").innerHTML = out.join("");
+}
+
+function section(title, rows, note) {
+  const body = rows.map(r => `<tr><td>${escapeHtml(r.Time)}</td><td>${escapeHtml(r.Title)}</td><td><a href="${r.IssueId}">${escapeHtml(r.IssueId.replace(BASE, ""))}</a></td></tr>`).join("");
+  return `<h3>${title} <span class="ok">読み取り成功</span></h3>
+  <p class="lead" style="margin:.2rem 0">${note}</p>
+  <table><thead><tr><th>時刻</th><th>件名</th><th>開くURL</th></tr></thead><tbody>${body}</tbody></table>`;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+document.getElementById("copy").addEventListener("click", async () => {
+  const text = await (await fetch("sources/sources.pages.json", { cache: "no-store" })).text();
+  await navigator.clipboard.writeText(text);
+  const tag = document.getElementById("copied");
+  tag.hidden = false;
+  setTimeout(() => (tag.hidden = true), 2000);
+});
+
+run();
+</script>
+</body>
+</html>

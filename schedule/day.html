@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>個人日別予定（テスト用）</title>
+<style>
+  body { font-family: "Segoe UI", "Meiryo", sans-serif; margin: 2rem; color: #222; background: #fff; }
+  h1 { font-size: 1.2rem; }
+  p.note { color: #666; font-size: .85rem; }
+  table { border-collapse: collapse; margin-top: 1rem; }
+  th, td { border: 1px solid #ccc; padding: .35rem .8rem; font-size: .9rem; }
+  th { background: #f2f4f7; }
+  tr.inCompany td:first-child { white-space: nowrap; }
+  tr.outCompany { color: #999; background: #fafafa; }
+</style>
+</head>
+<body>
+<!--
+  業務デザイナーの「日別予定」ページを模した固定ページです。
+
+  TaskReminder 既定の Schedule 定義（sources.json）が前提にしている構造に合わせています。
+    RowSelector : .aligned.inCompany      … 1件分の行
+    IssueId     : data-href 属性          … Prefix に {Base} が付く
+    Title       : 1列目（0始まりの Cell:1）
+    Time        : 0列目を「～」で分割した開始側に {Today} を前置
+
+  時刻だけを書き、日付はアプリ側が {Today} で補うため、いつ取得しても「当日の予定」になります。
+  class="aligned outCompany" の行は、セレクタで拾われないことの確認用です。
+-->
+<h1>個人日別予定（TaskReminder テスト用のダミーページ）</h1>
+<p class="note">
+  このページは実サーバーの代わりに使う固定データです。時刻のみを持ち、日付はアプリ側が当日で補います。<br>
+  表示上の当日: <span id="today"></span>
+</p>
+
+<table class="scheduleTable">
+  <thead>
+    <tr><th>時間</th><th>件名</th><th>場所</th></tr>
+  </thead>
+  <tbody>
+    <tr class="aligned outCompany" data-href="/items/detail.html?type=schedule&amp;id=9001">
+      <td>07:30～08:00</td><td>社外の予定（取得対象外）</td><td>-</td>
+    </tr>
+
+    <tr class="aligned inCompany" data-href="/items/detail.html?type=schedule&amp;id=1000">
+      <td>06:30～07:00</td><td>メール確認</td><td>自席</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.html?type=schedule&amp;id=1001">
+      <td>08:30～08:45</td><td>朝会</td><td>会議室A</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.html?type=schedule&amp;id=1002">
+      <td>10:00～11:00</td><td>定例ミーティング</td><td>会議室B</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.html?type=schedule&amp;id=1003">
+      <td>11:30～12:00</td><td>見積の打ち合わせ</td><td>オンライン</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.html?type=schedule&amp;id=1004">
+      <td>13:00～14:00</td><td>設計レビュー ＜重要＞</td><td>会議室A</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.html?type=schedule&amp;id=1005">
+      <td>14:30～15:00</td><td>進捗報告</td><td>オンライン</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.html?type=schedule&amp;id=1006">
+      <td>16:00～17:00</td><td>顧客訪問の準備</td><td>自席</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.html?type=schedule&amp;id=1007">
+      <td>17:30～18:00</td><td>日報のまとめ</td><td>自席</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.html?type=schedule&amp;id=1008">
+      <td>19:00～20:00</td><td>勉強会</td><td>会議室C</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.html?type=schedule&amp;id=1009">
+      <td>21:00～21:30</td><td>バッチ処理の確認</td><td>自席</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.html?type=schedule&amp;id=1010">
+      <td>22:30～23:00</td><td>夜間バッチの見守り</td><td>自席</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.html?type=schedule&amp;id=1011">
+      <td>23:45～23:59</td><td>翌日の予定確認</td><td>自席</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="note">
+  <a href="../index.html">テストサイトの説明へ戻る</a> ／
+  <a href="empty.html">0件のページ</a> ／
+  <a href="custom.html">リスト形式のページ</a>
+</p>
+
+<script>
+  // 表示だけの補助。アプリの解析結果には影響しません
+  document.getElementById("today").textContent =
+    new Date().toLocaleDateString("ja-JP", { year: "numeric", month: "2-digit", day: "2-digit" });
+</script>
+</body>
+</html>
