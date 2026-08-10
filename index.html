@@ -48,7 +48,7 @@
     <tr><td><a href="schedule/day.html">schedule/day.html</a></td><td>HTML</td><td>日別予定。<code>.aligned.inCompany</code> の行が12件、朝から深夜まで（対象外の行も1件混ぜてあります）</td></tr>
     <tr><td><a href="schedule/empty.html">schedule/empty.html</a></td><td>HTML</td><td>0件のページ（取得成功・通知なしの確認）</td></tr>
     <tr><td><a href="schedule/custom.html">schedule/custom.html</a></td><td>HTML</td><td>表ではなくリスト構造（行内セレクタの確認）</td></tr>
-    <tr><td><a href="api/tasks.json">api/tasks.json</a></td><td>JSON</td><td>プリザンター形式（<code>Response.Data</code>）。日付は毎日その日に更新されます</td></tr>
+    <tr><td><a href="api/tasks.json">api/tasks.json</a></td><td>JSON</td><td>タスクサイト形式（<code>Response.Data</code>）。日付は毎日その日に更新されます</td></tr>
     <tr><td><a href="api/tasks-empty.json">api/tasks-empty.json</a></td><td>JSON</td><td>0件の応答</td></tr>
     <tr><td><a href="api/tasks-missing-field.json">api/tasks-missing-field.json</a></td><td>JSON</td><td><code>CompletionTime</code> が欠けた応答（解析失敗になること）</td></tr>
     <tr><td><a href="api/broken.json">api/broken.json</a></td><td>JSON以外</td><td>JSONとして壊れた応答（解析失敗になること）</td></tr>
@@ -81,7 +81,7 @@
   <ul class="plain">
     <li><strong>GET だけ</strong>。静的配信なので POST は使えません（POST を指定すると取得失敗になります）</li>
     <li><strong>ログインできません</strong>。定義から <code>"Login"</code> を外し、<code>"Credential": "None"</code> にします</li>
-    <li><strong>絞り込み条件は送れません</strong>。プリザンターの <code>View</code> のような本文は送っても無視されます</li>
+    <li><strong>絞り込み条件は送れません</strong>。タスクサイトの <code>View</code> のような本文は送っても無視されます</li>
     <li><strong>ヘッダーは検証されません</strong>。<code>Authorization</code> を付けても素通りします（未登録時のメッセージ確認には使えます）</li>
     <li>URL の <code>?date={Today:yyyy-MM-dd}</code> は無視されますが、置き換え文字が効いているかの確認になります</li>
   </ul>
