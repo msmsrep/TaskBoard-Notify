@@ -3,7 +3,7 @@
 //   node tools/generate.mjs
 //
 // 作られるファイル
-//   api/tasks.json         プリザンター形式（Response.Data 配列）
+//   api/tasks.json         タスクサイト形式（Response.Data 配列）
 //   api/custom-tasks.json  独自形式（result.list 配列）
 //
 // GitHub Actions（.github/workflows/pages.yml）から毎日実行しているため、
@@ -32,7 +32,7 @@ const at = (hour, minute = 0, addDays = 0) => {
 };
 
 // ---------------------------------------------------------------
-// プリザンター形式 /api/items/{id}/get の応答
+// タスクサイト形式 /api/items/{id}/get の応答
 //   ArrayPath : Response.Data
 //   IssueId / Title / CompletionTime
 // ---------------------------------------------------------------

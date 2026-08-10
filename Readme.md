@@ -23,7 +23,7 @@ Windows 用の予定・タスク通知アプリ **TaskReminder** を、接続先
 | `schedule/day.html` | HTML | 日別予定。`.aligned.inCompany` の行が12件、朝から深夜まで（拾われてはいけない行も1件） |
 | `schedule/empty.html` | HTML | 0件のページ |
 | `schedule/custom.html` | HTML | 表ではなくリスト構造（行内セレクタ用） |
-| `api/tasks.json` | JSON | プリザンター形式（`Response.Data`）。日付は毎日その日に更新 |
+| `api/tasks.json` | JSON | タスクサイト形式（`Response.Data`）。日付は毎日その日に更新 |
 | `api/tasks-empty.json` | JSON | 0件の応答 |
 | `api/tasks-missing-field.json` | JSON | `CompletionTime` が欠けた応答 |
 | `api/broken.json` | - | JSONとして壊れた応答 |
@@ -36,7 +36,7 @@ Windows 用の予定・タスク通知アプリ **TaskReminder** を、接続先
 
 | ファイル | 内容 |
 | --- | --- |
-| [sources/sources.pages.json](sources/sources.pages.json) | 既定（業務デザイナー / プリザンター）と同じ解析方法のまま、取得先だけをこのサイトへ向けたもの |
+| [sources/sources.pages.json](sources/sources.pages.json) | 既定（予定サイト / タスクサイト）と同じ解析方法のまま、取得先だけをこのサイトへ向けたもの |
 | [sources/sources.custom.json](sources/sources.custom.json) | 項目名も構造も違う相手を、コードを変えずに扱えることの確認用 |
 
 ## 確認できること / できないこと
@@ -52,7 +52,7 @@ Windows 用の予定・タスク通知アプリ **TaskReminder** を、接続先
 できないこと（GitHub Pages は静的配信のため）
 
 - **POST**（`"Method": "POST"` は失敗します）、**ログイン**（`"Login"` は書かない）、**Cookieの引き継ぎ**
-- プリザンターの絞り込み条件（`View`）のような**リクエスト本文**の中身の確認
+- タスクサイトの絞り込み条件（`View`）のような**リクエスト本文**の中身の確認
 - `Authorization` ヘッダーなど**認証の検証**（送っても素通りします）
 
 ログイン・POST・Cookie・APIキーの中身まで確認したい場合は、本体リポジトリの擬似サーバーを使ってください。
