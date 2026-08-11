@@ -1,0 +1,29 @@
+// TaskReminder 接続先1件分の定義（今の設定へ足す用）
+//
+// 一覧（"Sources"）で囲まず、接続先を1件だけ書いたファイルです。
+// 設定画面へドラッグ＆ドロップ（または「ファイルを選んで取り込む」）すると、
+// 今の設定を入れ替えずに、この1件だけを足します。
+//   - 同じ名前の接続先があれば、その1件だけを置き換えます
+//   - 足す前の内容は sources.previous.json に控えが残ります
+//   - やめたいときは「定義ファイルを開く」で、この名前の { ... } を消してください
+{
+  "Name": "足すテスト接続先(GitHub Pages)",
+  "Kind": "Json",
+  "Credential": "None",
+  "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify",
+  "Request": {
+    "Url": "{Base}/api/custom-tasks.json?date={Today:yyyy-MM-dd}",
+    "Method": "GET"
+  },
+  "Json": {
+    "ArrayPath": "result.list",
+    "IssueId": { "Path": "id", "Prefix": "{Base}/items/detail.html?type=task&id=" },
+    "Title": { "Path": "subject" },
+    "Time": { "Path": "due_date", "Format": "yyyy/MM/dd HH:mm" }
+  },
+  "OnlyFuture": false,
+  "ReplaceAll": true,
+  "IntervalSeconds": 60,
+  "RunTimes": "",
+  "NoticeMinutesBefore": 10
+}
