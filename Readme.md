@@ -1,6 +1,6 @@
-# TaskReminder テストサイト
+# TaskBoard-Notify テストサイト
 
-Windows 用の予定・タスク通知アプリ **TaskReminder** を、接続先が無い場所でも試せるようにするための
+Windows 用の予定・タスク通知アプリ **TaskBoard-Notify** を、接続先が無い場所でも試せるようにするための
 ダミーデータを GitHub Pages で配信しています。
 
 **公開先** https://msmsrep.github.io/TaskBoard-Notify/
@@ -18,7 +18,7 @@ Windows 用の予定・タスク通知アプリ **TaskReminder** を、接続先
 ファイルを取り込む場合:
 
 1. アプリの「設定」→「定義ファイルを開く」で `sources.json` を開く
-   （`%LOCALAPPDATA%\TaskReminder\sources.json`、MSIX版は LocalState）
+   （`%LOCALAPPDATA%\TaskBoard-Notify\sources.json`、MSIX版は LocalState）
 2. 元の内容を控えてから、[sources/sources.pages.json](sources/sources.pages.json) の内容で置き換えて保存
 3. 設定画面の「再読み込み」を押す（アプリの再起動は不要）
 4. 戻すときは控えた内容に書き戻す。またはファイルを削除して再起動すると、接続先0件のひな形から始まります
@@ -97,3 +97,38 @@ node tools/generate.mjs
 ---
 
 ここにあるのは動作確認用の作り話のデータです。実在の予定・タスク・接続先は含みません。
+
+## 開発を支援する
+
+本アプリ（PDF-Easy-Loader）は個人で開発・運営しています。継続的なアップデートや機能改善のため、任意の開発支援を受け付けています。  
+ご協力いただける場合は、以下のリンクから支援していただけると大変励みになります。  
+（本サポートは対価のない任意の寄付であり、特典の提供はございません。）  
+
+- Ko‑fi: <https://ko-fi.com/msmsrep>  
+- GitHub Sponsors: <https://github.com/sponsors/msmsrep>
+
+## プライバシーポリシー
+
+最終更新日：2026年8月12日
+
+### 収集・保存するデータ
+
+本アプリは、ユーザー登録情報、氏名、メールアドレスなどの個人情報を収集しません。
+
+### データ処理の範囲
+
+本アプリのファイル参照・検索処理は、ユーザーの端末内で実行されます。
+開発者サーバー等にアップロードして処理する仕組みはありません。
+
+### 外部送信・第三者提供
+
+本アプリは、ユーザーデータを外部サービスへ自動送信しません。
+また、第三者への販売・共有・提供は行いません。
+
+### データの削除方法
+
+アプリのアンインストール時に保存されたデータも削除されます。
+
+### お問い合わせ
+
+プライバシー・その他ご質問は、[GitHub Issues](https://github.com/msmsrep/TaskBoard-Notify/issues) までお寄せください
