@@ -1,4 +1,4 @@
-// TaskReminder 接続先の定義（GitHub Pages / 独自形式の確認用）
+// TaskBoard-Notify 接続先の定義（GitHub Pages / 独自形式の確認用）
 //
 // 既定（表形式のHTML・タスクサイトのJSON）とは、項目名も構造も違う相手を
 // コードを変えずに定義ファイルだけで扱えることの確認に使います。

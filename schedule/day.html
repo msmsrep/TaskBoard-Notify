@@ -19,7 +19,7 @@
 <!--
   予定サイトの「日別予定」ページを模した固定ページです。
 
-  TaskReminder 既定の Schedule 定義（sources.json）が前提にしている構造に合わせています。
+  TaskBoard-Notify 既定の Schedule 定義（sources.json）が前提にしている構造に合わせています。
     RowSelector : .aligned.inCompany      … 1件分の行
     IssueId     : data-href 属性          … Prefix に {Base} が付く
     Title       : 1列目（0始まりの Cell:1）
@@ -28,7 +28,7 @@
   時刻だけを書き、日付はアプリ側が {Today} で補うため、いつ取得しても「当日の予定」になります。
   class="aligned outCompany" の行は、セレクタで拾われないことの確認用です。
 -->
-<h1>個人日別予定（TaskReminder テスト用のダミーページ）</h1>
+<h1>個人日別予定（TaskBoard-Notify テスト用のダミーページ）</h1>
 <p class="note">
   このページは実サーバーの代わりに使う固定データです。時刻のみを持ち、日付はアプリ側が当日で補います。<br>
   表示上の当日: <span id="today"></span>
