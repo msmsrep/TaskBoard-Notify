@@ -1,6 +1,6 @@
-# TaskReminder テストサイト
+# TaskBoard-Notify テストサイト
 
-Windows 用の予定・タスク通知アプリ **TaskReminder** を、接続先が無い場所でも試せるようにするための
+Windows 用の予定・タスク通知アプリ **TaskBoard-Notify** を、接続先が無い場所でも試せるようにするための
 ダミーデータを GitHub Pages で配信しています。
 
 **公開先** https://msmsrep.github.io/TaskBoard-Notify/
@@ -18,7 +18,7 @@ Windows 用の予定・タスク通知アプリ **TaskReminder** を、接続先
 ファイルを取り込む場合:
 
 1. アプリの「設定」→「定義ファイルを開く」で `sources.json` を開く
-   （`%LOCALAPPDATA%\TaskReminder\sources.json`、MSIX版は LocalState）
+   （`%LOCALAPPDATA%\TaskBoard-Notify\sources.json`、MSIX版は LocalState）
 2. 元の内容を控えてから、[sources/sources.pages.json](sources/sources.pages.json) の内容で置き換えて保存
 3. 設定画面の「再読み込み」を押す（アプリの再起動は不要）
 4. 戻すときは控えた内容に書き戻す。またはファイルを削除して再起動すると、接続先0件のひな形から始まります
@@ -71,7 +71,7 @@ Windows 用の予定・タスク通知アプリ **TaskReminder** を、接続先
 ログイン・POST・Cookie・APIキーの中身まで確認したい場合は、本体リポジトリの擬似サーバーを使ってください。
 
 ```bash
-dotnet run --project Tests/TaskReminder.TestConsole -- server
+dotnet run --project Tests/TaskBoardNotify.TestConsole -- server
 ```
 
 ## データを変えたい
@@ -97,3 +97,17 @@ node tools/generate.mjs
 ---
 
 ここにあるのは動作確認用の作り話のデータです。実在の予定・タスク・接続先は含みません。
+
+## プライバシーポリシー
+
+本アプリのプライバシーポリシーは [privacy.html](privacy.html) にあります。
+公開URL: <https://msmsrep.github.io/TaskBoard-Notify/privacy.html>
+
+## 開発を支援する
+
+本アプリ（TaskBoard-Notify）は個人で開発・運営しています。継続的なアップデートや機能改善のため、任意の開発支援を受け付けています。  
+ご協力いただける場合は、以下のリンクから支援していただけると大変励みになります。  
+（本サポートは対価のない任意の寄付であり、特典の提供はございません。）  
+
+- Ko‑fi: <https://ko-fi.com/msmsrep>  
+- GitHub Sponsors: <https://github.com/sponsors/msmsrep>

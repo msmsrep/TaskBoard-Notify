@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TaskReminder テストサイト</title>
+<title>TaskBoard-Notify テストサイト</title>
 <style>
   :root { color-scheme: light dark; --fg: #1c1f23; --muted: #5d646d; --line: #d7dce2; --bg: #fff; --card: #f7f9fb; --accent: #1f6feb; --ok: #1a7f37; --ng: #b42318; }
   @media (prefers-color-scheme: dark) {
@@ -33,9 +33,9 @@
 </head>
 <body>
 
-<h1>TaskReminder テストサイト</h1>
+<h1>TaskBoard-Notify テストサイト</h1>
 <p class="lead">
-  接続先が無い場所でも <strong>TaskReminder 本体アプリ</strong>の取得・解析・トースト通知を試せるように、
+  接続先が無い場所でも <strong>TaskBoard-Notify 本体アプリ</strong>の取得・解析・トースト通知を試せるように、
   実サーバーの応答を模した固定データを GitHub Pages で配信しています。
   アプリ側は <code>sources.json</code> を書き換えるだけで、ここに向けられます。
 </p>
@@ -68,7 +68,7 @@
 <p class="lead">ファイルから取り込む場合:</p>
 <ol>
   <li>アプリの「設定」→「定義ファイルを開く」で <code>sources.json</code> を開く<br>
-      <span class="lead">（保存先は <code>%LOCALAPPDATA%\TaskReminder\sources.json</code>、MSIX版は LocalState）</span></li>
+      <span class="lead">（保存先は <code>%LOCALAPPDATA%\TaskBoard-Notify\sources.json</code>、MSIX版は LocalState）</span></li>
   <li>元の内容を控えてから、下の定義で置き換えて保存</li>
   <li>設定画面の「再読み込み」を押す（アプリの再起動は不要）</li>
   <li>戻すときは控えた内容に書き戻すか、ファイルを削除して再起動（接続先0件のひな形から始まります）</li>
@@ -93,7 +93,7 @@
   </ul>
   <p class="lead" style="margin-bottom:0">
     ログイン・POST・Cookie・APIキーの中身まで確認したい場合は、本体リポジトリの擬似サーバー
-    （<code>dotnet run --project Tests/TaskReminder.TestConsole -- server</code>）を使ってください。
+    （<code>dotnet run --project Tests/TaskBoardNotify.TestConsole -- server</code>）を使ってください。
   </p>
 </div>
 
@@ -110,6 +110,9 @@
 <hr style="border:0;border-top:1px solid var(--line);margin:2.5rem 0 1rem">
 <p class="lead" style="font-size:.82rem">
   ここにあるのは動作確認用の作り話のデータです。実在の予定・タスク・接続先は含みません。
+</p>
+<p class="lead" style="font-size:.82rem">
+  <a href="privacy.html">プライバシーポリシー</a>
 </p>
 
 <script>

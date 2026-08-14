@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>プライバシーポリシー - TaskBoard-Notify</title>
+<style>
+  :root { color-scheme: light dark; --fg: #1c1f23; --muted: #5d646d; --line: #d7dce2; --bg: #fff; --card: #f7f9fb; --accent: #1f6feb; --ok: #1a7f37; --ng: #b42318; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg: #e6e9ee; --muted: #9aa4b0; --line: #303740; --bg: #14171c; --card: #1b1f26; --accent: #6ea8fe; --ok: #4ac26b; --ng: #ff7b72; }
+  }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", "Meiryo", sans-serif; margin: 0 auto; padding: 2rem 1.2rem 4rem; max-width: 48rem; color: var(--fg); background: var(--bg); line-height: 1.8; }
+  h1 { font-size: 1.5rem; margin-bottom: .2rem; }
+  h2 { font-size: 1.1rem; margin-top: 2.4rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+  h3 { font-size: .95rem; margin: 1.4rem 0 .3rem; }
+  p, li { font-size: .92rem; }
+  .lead { color: var(--muted); }
+  .updated { color: var(--muted); font-size: .85rem; margin-top: 0; }
+  code { background: var(--card); padding: .1rem .35rem; border-radius: 4px; font-size: .86rem; word-break: break-all; }
+  table { border-collapse: collapse; width: 100%; margin-top: .6rem; }
+  th, td { border: 1px solid var(--line); padding: .45rem .6rem; font-size: .85rem; text-align: left; vertical-align: top; }
+  th { background: var(--card); white-space: nowrap; }
+  .wrap { overflow-x: auto; }
+  a { color: var(--accent); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: .8rem 1rem; }
+  ul { padding-left: 1.2rem; }
+  footer { margin-top: 3rem; border-top: 1px solid var(--line); padding-top: 1rem; font-size: .82rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<h1>プライバシーポリシー</h1>
+<p class="updated">TaskBoard-Notify（開発・運営：msmsrep）／最終更新日：2026年8月12日</p>
+
+<p>
+  TaskBoard-Notify（以下「本アプリ」）は、Windows 用の予定・タスク通知アプリです。
+  利用者が指定した接続先から予定・タスクの一覧を定期的に取得し、開始時刻の前にトースト通知でお知らせします。
+</p>
+<div class="card">
+  <p style="margin:0">
+    本アプリは、開発者が運営するサーバーを一切持ちません。
+    利用者の情報が開発者へ送られることはなく、通信先は<strong>利用者自身が設定した接続先だけ</strong>です。
+  </p>
+</div>
+
+<h2>1. 開発者が収集する情報</h2>
+<p>ありません。本アプリは次のいずれも行いません。</p>
+<ul>
+  <li>ユーザー登録、アカウント作成（氏名・メールアドレス等の入力を求めることはありません）</li>
+  <li>利用状況の解析、アクセス解析、広告識別子の取得</li>
+  <li>クラッシュレポート・ログの自動送信</li>
+  <li>取得した予定・タスクの内容、資格情報、設定内容の開発者への送信</li>
+</ul>
+
+<h2>2. 端末内に保存される情報</h2>
+<p>
+  本アプリは、動作に必要な次の情報を利用者の端末内にのみ保存します。
+  いずれも外部へは送信されません。
+</p>
+
+<div class="wrap">
+<table>
+  <thead><tr><th>保存されるもの</th><th>内容</th><th>保存形式</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>sources.json</code></td>
+      <td>接続先の定義（接続先のURL、取得間隔、解析方法など）</td>
+      <td>平文のJSON</td>
+    </tr>
+    <tr>
+      <td><code>sources.previous.json</code></td>
+      <td>定義ファイルを取り込みで置き換える直前の内容（元に戻すための控え）</td>
+      <td>平文のJSON</td>
+    </tr>
+    <tr>
+      <td><code>credentials.json</code></td>
+      <td>接続先の認証に使うユーザー名・パスワード・APIキー（利用者が設定画面で登録した場合のみ）</td>
+      <td>パスワードとAPIキーは Windows の DPAPI（CurrentUser）で暗号化。同じ Windows ユーザーのみ復号でき、別ユーザー・別PCへコピーしても復号できません</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>保存先は次のとおりです。</p>
+<ul>
+  <li>ストア版・MSIX版：<code>%LOCALAPPDATA%\Packages\{パッケージ名}\LocalState</code></li>
+  <li>exe版（インストーラーを使わない配布）：<code>%LOCALAPPDATA%\TaskBoard-Notify</code></li>
+</ul>
+<p class="lead">実際の保存先は、アプリの設定画面から確認できます。</p>
+
+<p>
+  接続先から取得した予定・タスクの内容（件名・時刻・リンク先URL）は、通知済みかどうかの判定のために
+  <strong>アプリ実行中のメモリ上でのみ</strong>保持します。ファイルには書き出さず、アプリを終了すると失われます。
+</p>
+
+<h2>3. 通信について</h2>
+<p>
+  本アプリの主な機能は外部サーバーからのデータ取得であるため、通信を行います。
+  ただし、通信先は<strong>利用者が定義ファイル（<code>sources.json</code>）に記載した接続先に限られます</strong>。
+  アプリにあらかじめ組み込まれた接続先はなく、初期状態では接続先0件のため通信は発生しません。
+</p>
+
+<h3>送信される内容</h3>
+<ul>
+  <li>定義ファイルに記載されたURLへのHTTPリクエスト（設定した取得間隔ごとに自動で実行されます）</li>
+  <li>接続先がログインを必要とする場合：登録したユーザー名・パスワードを、定義ファイルに記載されたログインURLへ送信します</li>
+  <li>接続先がAPIキーを必要とする場合：登録したAPIキーを、定義ファイルに記載された形式（リクエストヘッダーまたは本文）で送信します</li>
+</ul>
+<p>
+  これらの送信先・送信内容・送信タイミングは、すべて利用者が定義ファイルで指定したものです。
+  開発者はこれらの通信内容を受け取ることも、参照することもできません。
+</p>
+
+<h3>通信の安全性について</h3>
+<p>
+  通信の暗号化は、利用者が指定したURLのスキームに従います。
+  <code>https://</code> を指定した場合は暗号化されますが、<code>http://</code> を指定した場合は暗号化されません。
+  資格情報を扱う接続先には <code>https://</code> の利用をおすすめします。
+</p>
+
+<h3>動作確認用サイトについて</h3>
+<p>
+  設定画面の「テスト用の設定を入れる」を使用した場合、接続先として本サイト
+  （<code>https://msmsrep.github.io/TaskBoard-Notify</code>）が追加されます。
+  配信しているのは動作確認用の固定データのみで、認証は不要です。
+  本サイトは GitHub Pages（GitHub, Inc.）でホストされており、アクセスに伴う技術的な記録の取り扱いは
+  同社のポリシーに従います。開発者側で閲覧者を識別する仕組みは設置していません。
+</p>
+
+<h2>4. 第三者提供</h2>
+<p>
+  本アプリが利用者のデータを第三者へ販売・共有・提供することはありません。
+  法令に基づく開示請求に応じる場合を含め、開発者は利用者のデータを保有していないため、提供できるデータがありません。
+</p>
+
+<h2>5. データの削除方法</h2>
+<h3>ストア版・MSIX版</h3>
+<p>
+  アプリをアンインストールすると、<code>LocalState</code> フォルダごと削除されます。
+  上記の保存データもあわせて削除されます。
+</p>
+
+<h3>exe版</h3>
+<p>
+  アプリのファイルを削除しても、<code>%LOCALAPPDATA%\TaskBoard-Notify</code> フォルダは残ります。
+  完全に削除する場合は、このフォルダを手動で削除してください。
+</p>
+
+<h3>資格情報だけを削除する場合</h3>
+<p>
+  設定画面の各接続先から、登録済みの資格情報を個別に削除できます。
+  アプリを使い続けたまま、パスワード・APIキーだけを消すことができます。
+</p>
+
+<h2>6. お問い合わせ</h2>
+<p>
+  プライバシーに関するご質問・ご要望は、次のいずれかへお寄せください。
+</p>
+<ul>
+  <li>GitHub Issues：<a href="https://github.com/msmsrep/TaskBoard-Notify/issues">https://github.com/msmsrep/TaskBoard-Notify/issues</a>（公開されます。個人情報は記載しないでください）</li>
+  <!-- ストア提出では連絡用メールアドレスの記載を求められる場合があります。公開してよいアドレスを決めたら次の行のコメントを外してください
+  <li>メール：<code>example@example.com</code></li>
+  -->
+</ul>
+
+<footer>
+  <a href="./">TaskBoard-Notify テストサイトへ戻る</a>
+</footer>
+
+</body>
+</html>
