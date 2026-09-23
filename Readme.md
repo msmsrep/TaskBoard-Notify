@@ -109,5 +109,5 @@ node tools/generate.mjs
 ご協力いただける場合は、以下のリンクから支援していただけると大変励みになります。  
 （本サポートは対価のない任意の寄付であり、特典の提供はございません。）  
 
-- Ko‑fi: <https://ko-fi.com/msmsrep>  
-- GitHub Sponsors: <https://github.com/sponsors/msmsrep>
+- GitHub Sponsors: <https://github.com/sponsors/msmsrep>  
+- Ko-fi: <https://ko-fi.com/msmsrep>
