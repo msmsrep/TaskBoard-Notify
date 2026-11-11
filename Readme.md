@@ -3,7 +3,10 @@
 Windows 用の予定・タスク通知アプリ **TaskBoard-Notify** を、接続先が無い場所でも試せるようにするための
 ダミーデータを GitHub Pages で配信しています。
 
-**公開先** https://msmsrep.github.io/TaskBoard-Notify/
+**公開先**
+- 紹介ページ: https://msmsrep.github.io/TaskBoard-Notify/ （`index.html`。画面写真は `assets/img/`）
+- テストサイトの説明: https://msmsrep.github.io/TaskBoard-Notify/test.html （`test.html`）
+- Microsoft Store: https://apps.microsoft.com/detail/9n2f619n6d0x?hl=ja-JP&gl=JP
 
 アプリ側は接続先も解析方法もコードに書かれておらず、定義ファイル `sources.json` の内容どおりに動きます。
 接続先は `Sources` に1件ずつ並べるだけで、予定用・タスク用といった区別はありません。
