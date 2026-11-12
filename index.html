@@ -96,6 +96,13 @@
   .trust h3 { margin: 0 0 .3rem; font-size: 1rem; }
   .trust p { margin: 0; font-size: .9rem; color: var(--muted); }
 
+  .support { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+  .sp { display: flex; align-items: center; gap: .9rem; min-width: 17rem; flex: 0 1 22rem; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.2rem; color: var(--fg); text-decoration: none; }
+  .sp:hover { border-color: var(--accent); }
+  .sp svg { width: 28px; height: 28px; flex: none; color: #db61a2; }
+  .sp span { display: flex; flex-direction: column; line-height: 1.5; }
+  .sp small { color: var(--muted); font-size: .82rem; }
+  @media (max-width: 560px) { .sp { min-width: 0; flex-basis: 100%; } }
   .final { text-align: center; }
   .final .cta { justify-content: center; }
 
@@ -124,6 +131,7 @@
       <a href="#screens">画面</a>
       <a href="#start">はじめかた</a>
       <a href="test.html">テストサイト</a>
+      <a href="#support">開発を支援</a>
     </nav>
   </div>
 </header>
@@ -286,7 +294,30 @@
   </div>
 </section>
 
-<section class="soft final">
+<section id="support" class="soft">
+  <div class="wrap">
+    <h2>開発を支援する</h2>
+    <p class="sub">
+      TaskBoard-Notify は個人で開発・運営しています。継続的なアップデートや機能改善のため、任意の開発支援を受け付けています。
+      応援していただけると大変励みになります。
+    </p>
+    <div class="support">
+      <a class="sp" href="https://github.com/sponsors/msmsrep" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        <span><strong>GitHub Sponsors</strong><small>GitHub アカウントで毎月または1回だけ支援</small></span>
+      </a>
+      <a class="sp" href="https://ko-fi.com/msmsrep" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg>
+        <span><strong>Ko-fi</strong><small>コーヒー1杯分から、アカウント登録なしで支援</small></span>
+      </a>
+    </div>
+    <p class="note" style="text-align:center;margin-top:1.4rem">
+      支援は対価のない任意の寄付です。特典の提供はなく、支援の有無でアプリの機能は変わりません。
+    </p>
+  </div>
+</section>
+
+<section class="final">
   <div class="wrap">
     <h2>予定の見逃しを、今日から減らそう</h2>
     <p class="sub">TaskBoard-Notify は Microsoft Store で配布しています。</p>
