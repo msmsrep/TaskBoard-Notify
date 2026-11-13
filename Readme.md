@@ -53,6 +53,7 @@ Windows 用の予定・タスク通知アプリ **TaskBoard-Notify** を、接�
 | [sources/sources.pages.json](sources/sources.pages.json) | 予定サイト / タスクサイトの読み方のまま、取得先だけをこのサイトへ向けたもの（アプリの「テスト用の設定を入れる」と同じ内容） |
 | [sources/sources.custom.json](sources/sources.custom.json) | 項目名も構造も違う相手を、コードを変えずに扱えることの確認用 |
 | [sources/sources.one.json](sources/sources.one.json) | 接続先1件だけ。今の設定へ**足す**動きの確認用 |
+| [sources/sources.pleasanter.json](sources/sources.pleasanter.json) | 使い方の例（プリザンターの API）。紹介ページの「使い方の例」に載せているもの。URL とサイトID を書き換えて使う |
 
 ## 確認できること / できないこと
 
