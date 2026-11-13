@@ -91,6 +91,15 @@
   .step p { margin: 0; font-size: .9rem; color: var(--muted); }
   code { background: var(--soft); border: 1px solid var(--line); padding: .05rem .35rem; border-radius: 4px; font-size: .85em; }
 
+  .example { display: grid; grid-template-columns: 1fr 1.25fr; gap: 2.5rem; align-items: start; }
+  .example > * { min-width: 0; }
+  .example h3 { font-size: 1.2rem; margin: 0 0 .7rem; line-height: 1.5; }
+  .example p, .example li { color: var(--muted); font-size: .95rem; }
+  .example ul { padding-left: 1.2rem; margin: .6rem 0 1.2rem; }
+  .example pre { margin: 0; background: var(--soft); border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.1rem; overflow: auto; max-height: 34rem; font-size: .8rem; line-height: 1.55; tab-size: 2; }
+  .example pre code { background: none; border: 0; padding: 0; font-size: inherit; font-family: Consolas, "Cascadia Mono", monospace; }
+  @media (max-width: 820px) { .example { grid-template-columns: 1fr; gap: 1.5rem; } }
+
   .trust { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.2rem; }
   .trust div { border-left: 3px solid var(--mint); padding: .2rem 0 .2rem 1rem; }
   .trust h3 { margin: 0 0 .3rem; font-size: 1rem; }
@@ -130,6 +139,7 @@
       <a href="#features">特長</a>
       <a href="#screens">画面</a>
       <a href="#start">はじめかた</a>
+      <a href="#example">設定例</a>
       <a href="test.html">テストサイト</a>
       <a href="#support">開発を支援</a>
     </nav>
@@ -272,7 +282,94 @@
   </div>
 </section>
 
-<section>
+<section id="example">
+  <div class="wrap">
+    <h2>使い方の例</h2>
+    <p class="sub">実際のサービスにつなぐときの <code>sources.json</code> の書き方です。ここではプリザンターの API を例にします。</p>
+    <div class="example">
+      <div>
+        <h3>プリザンターの期限付きレコードを通知する</h3>
+        <p>自分が担当者または管理者になっていて、完了日時が今日までのレコードを取得し、完了日時の10分前に通知します。</p>
+        <ul>
+          <li><code>CredentialTarget</code> をプリザンターの URL に、<code>Url</code> の <code>123</code> を取得したいテーブルのサイトID に書き換えます</li>
+          <li>APIキーはファイルに書かず「設定」画面で登録。<code>{ApiKey}</code> の位置に入ります</li>
+          <li><code>{ "$json": { … } }</code> で囲んだ部分は JSON 文字列にして送ります（絞り込み条件を文字列で受け取る API 向け）</li>
+          <li><code>{Today}</code> は今日の日付に置き換わるので、絞り込みの範囲が毎日ずれていきます</li>
+          <li><code>RunTimes</code> に書いた 9:00・13:00・16:00 にだけ取得し、<code>ReplaceAll</code> で一覧を毎回入れ替えます</li>
+        </ul>
+        <div class="cta">
+          <a class="btn ghost" href="sources/sources.pleasanter.json" download>設定ファイルをダウンロード</a>
+        </div>
+        <p class="note">書き換えたファイルを「設定」画面へドロップすると、今の設定にこの1件が足されます。取得は POST で行うため、追加時に確認が表示されます。</p>
+      </div>
+      <pre><code>{
+  "Version": 2,
+  "Sources": [
+    {
+      "Name": "プリザンター",
+      "Kind": "Json",
+      "CredentialTarget": "https://pleasanter",
+      "Credential": "ApiKey",
+      "Request": {
+        "Url": "{Base}/api/items/123/get",
+        "Method": "POST",
+        "ContentType": "application/json",
+        "BodyJson": {
+          "ApiVersion": 1.1,
+          "ApiKey": "{ApiKey}",
+          "View": {
+            "ColumnFilterHash": {
+              "and_Main": {
+                "$json": {
+                  "and_Filter1": {
+                    "$json": {
+                      "CompletionTime": "[\"2026/01/01 00:00:00,{Today} 23:59:59\"]",
+                      "Status": "[100,150,200,300,910]"
+                    }
+                  },
+                  "or_Filter1": {
+                    "$json": {
+                      "Owner": "[\"Own\"]",
+                      "Manager": "[\"Own\"]"
+                    }
+                  }
+                }
+              }
+            },
+            "ColumnSorterHash": {
+              "CompletionTime": "asc"
+            }
+          }
+        }
+      },
+      "Json": {
+        "ArrayPath": "Response.Data",
+        "IssueId": {
+          "Path": "IssueId",
+          "Prefix": "{Base}/items/"
+        },
+        "Title": {
+          "Path": "Title"
+        },
+        "Time": {
+          "Path": "CompletionTime",
+          "AsDateTime": true
+        }
+      },
+      "OnlyFuture": false,
+      "ReplaceAll": true,
+      "IntervalSeconds": 60,
+      "RunTimes": "9:00,13:00,16:00",
+      "NoticeMinutesBefore": 10,
+      "DimPastToday": false
+    }
+  ]
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="soft">
   <div class="wrap">
     <h2>安心して使うために</h2>
     <p class="sub">通知のためのデータは、あなたの PC とあなたが指定した接続先の間だけでやり取りします。</p>
@@ -294,7 +391,7 @@
   </div>
 </section>
 
-<section id="support" class="soft">
+<section id="support">
   <div class="wrap">
     <h2>開発を支援する</h2>
     <p class="sub">

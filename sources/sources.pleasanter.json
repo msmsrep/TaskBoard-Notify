@@ -1,0 +1,73 @@
+// TaskBoard-Notify 接続先の定義（使い方の例 / プリザンター）
+//
+// プリザンターの API から、自分が担当者または管理者になっている期限付きのレコードを取得する例です。
+// このままでは動きません。次の2か所を自分の環境に合わせて書き換えてください。
+//
+//   "CredentialTarget" : プリザンターの URL（例 https://pleasanter.example.com）
+//   "Url" の 123       : 取得したいテーブルのサイトID
+//
+// APIキーは定義ファイルには書かず、「設定」画面で登録します（{ApiKey} に入ります）。
+// 接続先1件だけのファイルなので、設定画面へドロップすると今の設定に1件足されます。
+{
+  "Version": 2,
+  "Sources": [
+    {
+      "Name": "プリザンター",
+      "Kind": "Json",
+      "CredentialTarget": "https://pleasanter",
+      "Credential": "ApiKey",
+      "Request": {
+        "Url": "{Base}/api/items/123/get",
+        "Method": "POST",
+        "ContentType": "application/json",
+        "BodyJson": {
+          "ApiVersion": 1.1,
+          "ApiKey": "{ApiKey}",
+          "View": {
+            "ColumnFilterHash": {
+              "and_Main": {
+                "$json": {
+                  "and_Filter1": {
+                    "$json": {
+                      "CompletionTime": "[\"2026/01/01 00:00:00,{Today} 23:59:59\"]",
+                      "Status": "[100,150,200,300,910]"
+                    }
+                  },
+                  "or_Filter1": {
+                    "$json": {
+                      "Owner": "[\"Own\"]",
+                      "Manager": "[\"Own\"]"
+                    }
+                  }
+                }
+              }
+            },
+            "ColumnSorterHash": {
+              "CompletionTime": "asc"
+            }
+          }
+        }
+      },
+      "Json": {
+        "ArrayPath": "Response.Data",
+        "IssueId": {
+          "Path": "IssueId",
+          "Prefix": "{Base}/items/"
+        },
+        "Title": {
+          "Path": "Title"
+        },
+        "Time": {
+          "Path": "CompletionTime",
+          "AsDateTime": true
+        }
+      },
+      "OnlyFuture": false,
+      "ReplaceAll": true,
+      "IntervalSeconds": 60,
+      "RunTimes": "9:00,13:00,16:00",
+      "NoticeMinutesBefore": 10,
+      "DimPastToday": false
+    }
+  ]
+}
