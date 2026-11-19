@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily schedule (test)</title>
+<style>
+  body { font-family: "Segoe UI", "Meiryo", sans-serif; margin: 2rem; color: #222; background: #fff; }
+  h1 { font-size: 1.2rem; }
+  p.note { color: #666; font-size: .85rem; }
+  table { border-collapse: collapse; margin-top: 1rem; }
+  th, td { border: 1px solid #ccc; padding: .35rem .8rem; font-size: .9rem; }
+  th { background: #f2f4f7; }
+  tr.inCompany td:first-child { white-space: nowrap; }
+  tr.outCompany { color: #999; background: #fafafa; }
+</style>
+</head>
+<body>
+<!--
+  English version of schedule/day.html: a fixed page that mimics the "daily schedule" page of a calendar site.
+  The structure, classes and times are the same as day.html; the titles (and page text) are in English,
+  and data-href points to the English details page (items/detail.en.html) instead of items/detail.html.
+
+  It matches the structure the default TaskBoard-Notify Schedule definition (sources.json) expects.
+    RowSelector : .aligned.inCompany      … one row per item
+    IssueId     : data-href attribute     … {Base} is added as the Prefix
+    Title       : column 1 (Cell:1, zero-based)
+    Time        : column 0 split at "～", start side, with {Today} prepended
+
+  Only times are written; the app fills in the date with {Today}, so it is always "today's schedule".
+  The class="aligned outCompany" row checks that it is NOT picked up by the selector.
+-->
+<h1>Daily schedule (dummy page for testing TaskBoard-Notify)</h1>
+<p class="note">
+  This page is fixed data used in place of a real server. It holds only times; the app fills in today's date.<br>
+  Today (display only): <span id="today"></span>
+</p>
+
+<table class="scheduleTable">
+  <thead>
+    <tr><th>Time</th><th>Title</th><th>Location</th></tr>
+  </thead>
+  <tbody>
+    <tr class="aligned outCompany" data-href="/items/detail.en.html?type=schedule&amp;id=9001">
+      <td>07:30～08:00</td><td>External appointment (not collected)</td><td>-</td>
+    </tr>
+
+    <tr class="aligned inCompany" data-href="/items/detail.en.html?type=schedule&amp;id=1000">
+      <td>06:30～07:00</td><td>Check email</td><td>My desk</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.en.html?type=schedule&amp;id=1001">
+      <td>08:30～08:45</td><td>Morning stand-up</td><td>Meeting room A</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.en.html?type=schedule&amp;id=1002">
+      <td>10:00～11:00</td><td>Weekly team meeting</td><td>Meeting room B</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.en.html?type=schedule&amp;id=1003">
+      <td>11:30～12:00</td><td>Quote discussion</td><td>Online</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.en.html?type=schedule&amp;id=1004">
+      <td>13:00～14:00</td><td>Design review &lt;Important&gt;</td><td>Meeting room A</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.en.html?type=schedule&amp;id=1005">
+      <td>14:30～15:00</td><td>Progress report</td><td>Online</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.en.html?type=schedule&amp;id=1006">
+      <td>16:00～17:00</td><td>Prepare for customer visit</td><td>My desk</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.en.html?type=schedule&amp;id=1007">
+      <td>17:30～18:00</td><td>Write daily report</td><td>My desk</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.en.html?type=schedule&amp;id=1008">
+      <td>19:00～20:00</td><td>Study session</td><td>Meeting room C</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.en.html?type=schedule&amp;id=1009">
+      <td>21:00～21:30</td><td>Check batch jobs</td><td>My desk</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.en.html?type=schedule&amp;id=1010">
+      <td>22:30～23:00</td><td>Monitor nightly batch</td><td>My desk</td>
+    </tr>
+    <tr class="aligned inCompany" data-href="/items/detail.en.html?type=schedule&amp;id=1011">
+      <td>23:45～23:59</td><td>Review tomorrow's schedule</td><td>My desk</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="note">
+  <a href="../test.en.html">Back to the test site guide</a> /
+  <a href="empty.html">Empty page</a> /
+  <a href="custom.html">List-style page</a> /
+  <a href="day.html" lang="ja">日本語版</a>
+</p>
+
+<script>
+  // Display helper only. Does not affect what the app parses
+  document.getElementById("today").textContent =
+    new Date().toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" });
+</script>
+</body>
+</html>

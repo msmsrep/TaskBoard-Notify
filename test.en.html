@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TaskBoard-Notify Test Site</title>
+<link rel="alternate" hreflang="ja" href="https://msmsrep.github.io/TaskBoard-Notify/test.html">
+<link rel="alternate" hreflang="en" href="https://msmsrep.github.io/TaskBoard-Notify/test.en.html">
+<style>
+  :root { color-scheme: light dark; --fg: #1c1f23; --muted: #5d646d; --line: #d7dce2; --bg: #fff; --card: #f7f9fb; --accent: #1f6feb; --ok: #1a7f37; --ng: #b42318; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg: #e6e9ee; --muted: #9aa4b0; --line: #303740; --bg: #14171c; --card: #1b1f26; --accent: #6ea8fe; --ok: #4ac26b; --ng: #ff7b72; }
+  }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", "Meiryo", sans-serif; margin: 0 auto; padding: 2rem 1.2rem 4rem; max-width: 56rem; color: var(--fg); background: var(--bg); line-height: 1.7; }
+  h1 { font-size: 1.5rem; margin-bottom: .2rem; }
+  h2 { font-size: 1.1rem; margin-top: 2.4rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+  h3 { font-size: .95rem; margin-bottom: .3rem; }
+  p, li { font-size: .92rem; }
+  .lead { color: var(--muted); }
+  code { background: var(--card); padding: .1rem .35rem; border-radius: 4px; font-size: .86rem; }
+  pre { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: .9rem 1rem; overflow-x: auto; font-size: .82rem; }
+  table { border-collapse: collapse; width: 100%; margin-top: .6rem; }
+  th, td { border: 1px solid var(--line); padding: .4rem .6rem; font-size: .85rem; text-align: left; vertical-align: top; }
+  th { background: var(--card); white-space: nowrap; }
+  .wrap { overflow-x: auto; }
+  a { color: var(--accent); }
+  .ok { color: var(--ok); font-weight: 600; }
+  .ng { color: var(--ng); font-weight: 600; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: .8rem 1rem; }
+  button { font: inherit; font-size: .85rem; padding: .35rem .8rem; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  ul.plain { padding-left: 1.2rem; }
+</style>
+</head>
+<body>
+
+<p style="font-size:.85rem;margin:0"><a href="index.en.html">← TaskBoard-Notify home</a> ・ <a href="test.html" lang="ja" hreflang="ja">日本語</a></p>
+<h1>TaskBoard-Notify Test Site</h1>
+<p class="lead">
+  So that you can try fetching, parsing and toast notifications in the <strong>TaskBoard-Notify app</strong> even without a real server,
+  this site serves fixed data that mimics real server responses on GitHub Pages.
+  Just edit <code>sources.json</code> in the app to point it here.
+</p>
+
+<h2>Data served</h2>
+<p class="lead">This page uses the English data (<code>*.en.*</code>). The Japanese data is listed on the <a href="test.html" lang="ja" hreflang="ja">Japanese page</a>.</p>
+<div class="wrap">
+<table>
+  <thead><tr><th>URL</th><th>Format</th><th>Contents</th></tr></thead>
+  <tbody>
+    <tr><td><a href="schedule/day.en.html">schedule/day.en.html</a></td><td>HTML</td><td>Daily schedule. 12 <code>.aligned.inCompany</code> rows from early morning to late night (plus one row that should not be picked up)</td></tr>
+    <tr><td><a href="schedule/empty.html">schedule/empty.html</a></td><td>HTML</td><td>A page with 0 items (fetch succeeds, no notifications)</td></tr>
+    <tr><td><a href="schedule/custom.html">schedule/custom.html</a></td><td>HTML</td><td>A list structure instead of a table (for in-row selectors; Japanese titles)</td></tr>
+    <tr><td><a href="api/tasks.en.json">api/tasks.en.json</a></td><td>JSON</td><td>Task site format (<code>Response.Data</code>). Dates are updated to the current day every day</td></tr>
+    <tr><td><a href="api/tasks-empty.json">api/tasks-empty.json</a></td><td>JSON</td><td>A response with 0 items</td></tr>
+    <tr><td><a href="api/tasks-missing-field.json">api/tasks-missing-field.json</a></td><td>JSON</td><td>A response missing <code>CompletionTime</code> (should fail to parse)</td></tr>
+    <tr><td><a href="api/broken.json">api/broken.json</a></td><td>Not JSON</td><td>A response that is broken as JSON (should fail to parse)</td></tr>
+    <tr><td><a href="api/custom-tasks.json">api/custom-tasks.json</a></td><td>JSON</td><td>A custom format with different field names and array location (<code>result.list</code>; Japanese titles)</td></tr>
+    <tr><td><a href="items/detail.en.html?type=task&amp;id=3001">items/detail.en.html</a></td><td>HTML</td><td>The page opened by "Open page" on a toast (for the English data)</td></tr>
+    <tr><td>A URL that does not exist</td><td>-</td><td>Returns 404, so you can use it to check "fetch failed"</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Connecting the app</h2>
+<p class="lead">
+  The easiest way is Settings → "<strong>Add test sources</strong>" in the app.
+  Two sources that read this site's data are added right away (no download, no authentication).
+  Your current sources are kept, so remove the test ones with each source's "Delete" when you are done.
+</p>
+<p class="lead">
+  Note: for now, the sources added by the app read the Japanese data (<code>schedule/day.html</code>, <code>api/tasks.json</code>), even when the app is shown in English.
+  To read the English data, import the file below.
+</p>
+<p class="lead">To import from a file:</p>
+<ol>
+  <li>In the app, open Settings → "Open definition file" to open <code>sources.json</code><br>
+      <span class="lead">(Location: <code>%LOCALAPPDATA%\TaskBoard-Notify\sources.json</code>; LocalState for the MSIX version)</span></li>
+  <li>Keep a copy of the original contents, then replace them with the definition below and save</li>
+  <li>Click "Reload" in Settings (no need to restart the app)</li>
+  <li>To go back, restore the copy you kept, or delete the file and restart (the app starts from a template with 0 sources)</li>
+</ol>
+
+<h3>Definition to paste</h3>
+<p class="lead">
+  <a href="sources/sources.pages.en.json">sources/sources.pages.en.json</a> (same parsing as the defaults, English data) /
+  <a href="sources/sources.custom.json">sources/sources.custom.json</a> (custom format)
+  <button id="copy" type="button">Copy the first definition</button>
+  <span id="copied" class="ok" hidden>Copied</span>
+</p>
+
+<h2>Limitations of GitHub Pages</h2>
+<div class="card">
+  <ul class="plain">
+    <li><strong>GET only</strong>. Because files are served statically, POST cannot be used (specifying POST results in a fetch failure)</li>
+    <li><strong>No login</strong>. Remove <code>"Login"</code> from the definition and use <code>"Credential": "None"</code></li>
+    <li><strong>Filter conditions cannot be sent</strong>. A request body such as the task site's <code>View</code> is ignored even if sent</li>
+    <li><strong>Headers are not checked</strong>. An <code>Authorization</code> header passes through unchecked (useful for checking the "not registered" message)</li>
+    <li><code>?date={Today:yyyy-MM-dd}</code> in the URL is ignored, but it lets you check that placeholders are replaced</li>
+  </ul>
+  <p class="lead" style="margin-bottom:0">
+    To check login, POST, cookies or API key contents, use the mock server in the main repository
+    (<code>dotnet run --project Tests/TaskBoardNotify.TestConsole -- server</code>).
+  </p>
+</div>
+
+<h2>What should be fetched</h2>
+<p class="lead">This page reads the same URLs and shows the values the app should build.</p>
+<div id="check" class="wrap"></div>
+
+<h2>Data updates</h2>
+<p>
+  The HTML pages hold only times; the app fills in the date with <code>{Today}</code>, so they are always "today's schedule".<br>
+  GitHub Actions regenerates the dates in the JSON every day (<code>tools/generate.mjs</code>).
+</p>
+
+<hr style="border:0;border-top:1px solid var(--line);margin:2.5rem 0 1rem">
+<p class="lead" style="font-size:.82rem">
+  All data here is made-up data for testing. It contains no real schedules, tasks or servers.
+</p>
+<p class="lead" style="font-size:.82rem">
+  <a href="privacy.en.html">Privacy Policy</a>
+  / Support development (optional donation):
+  <a href="https://github.com/sponsors/msmsrep">GitHub Sponsors</a>
+  ・ <a href="https://ko-fi.com/msmsrep">Ko-fi</a>
+</p>
+
+<script>
+const BASE = location.href.replace(/\/[^/]*$/, "");
+const today = new Date();
+const pad = n => String(n).padStart(2, "0");
+const todayStr = `${today.getFullYear()}/${pad(today.getMonth() + 1)}/${pad(today.getDate())}`;
+
+// Reproduces how the definition file builds values, for checking
+async function run() {
+  const out = [];
+
+  // --- Schedule (HTML) ---
+  try {
+    const html = await (await fetch("schedule/day.en.html", { cache: "no-store" })).text();
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    const rows = [...doc.querySelectorAll(".aligned.inCompany")].map(tr => {
+      const cells = tr.querySelectorAll("td, th");
+      return {
+        IssueId: BASE + tr.getAttribute("data-href"),
+        Title: cells[1].textContent.trim(),
+        Time: `${todayStr} ${cells[0].textContent.split("～")[0].trim()}`
+      };
+    });
+    const future = rows.filter(r => new Date(r.Time.replace(/\//g, "-")) >= new Date());
+    out.push(section("Schedule : schedule/day.en.html", rows, `${rows.length} items in total / ${future.length} not started yet`));
+  } catch (e) {
+    out.push(`<p class="ng">Failed to fetch the schedule: ${escapeHtml(e.message)}</p>`);
+  }
+
+  // --- Tasks (JSON) ---
+  try {
+    const json = await (await fetch("api/tasks.en.json", { cache: "no-store" })).json();
+    const rows = json.Response.Data.map(x => ({
+      IssueId: `${BASE}/items/detail.en.html?type=task&id=${x.IssueId}`,
+      Title: x.Title,
+      Time: x.CompletionTime.replace("T", " ").replace(/-/g, "/").slice(0, 16)
+    }));
+    out.push(section("Tasks : api/tasks.en.json", rows, `${rows.length} items in total (all items are re-notified every time)`));
+  } catch (e) {
+    out.push(`<p class="ng">Failed to fetch the tasks: ${escapeHtml(e.message)}</p>`);
+  }
+
+  document.getElementById("check").innerHTML = out.join("");
+}
+
+function section(title, rows, note) {
+  const body = rows.map(r => `<tr><td>${escapeHtml(r.Time)}</td><td>${escapeHtml(r.Title)}</td><td><a href="${r.IssueId}">${escapeHtml(r.IssueId.replace(BASE, ""))}</a></td></tr>`).join("");
+  return `<h3>${title} <span class="ok">Read OK</span></h3>
+  <p class="lead" style="margin:.2rem 0">${note}</p>
+  <table><thead><tr><th>Time</th><th>Title</th><th>URL to open</th></tr></thead><tbody>${body}</tbody></table>`;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+document.getElementById("copy").addEventListener("click", async () => {
+  const text = await (await fetch("sources/sources.pages.en.json", { cache: "no-store" })).text();
+  await navigator.clipboard.writeText(text);
+  const tag = document.getElementById("copied");
+  tag.hidden = false;
+  setTimeout(() => (tag.hidden = true), 2000);
+});
+
+run();
+</script>
+</body>
+</html>
