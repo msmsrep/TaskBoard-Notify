@@ -1,0 +1,83 @@
+// TaskBoard-Notify source definitions (for the GitHub Pages test site, English data)
+//
+// English version of sources.pages.json. The parsing rules are the same;
+// only the source names, the data URLs (English test data) and the details page
+// opened from notifications (items/detail.en.html) differ.
+//
+// How to use
+//   1. In the app, open Settings → "Open definition file" to open sources.json
+//   2. Replace its contents with this file and save
+//   3. Click "Reload" (no need to restart the app)
+//   (Dragging and dropping this file onto the Settings window does the same.)
+//
+// Keep a copy of your original definitions first (so you can return to your own server's settings).
+//
+// List sources one by one under "Sources". There is no distinction between schedules and tasks.
+// To add just one source, use a file that contains only { ... }, like sources.one.json.
+//
+// Because GitHub Pages only serves static files, the following differ from the default definitions.
+//   - Login (POST) is not available, so "Login" is not written
+//   - Only "GET" is used (the task site's POST + filter conditions cannot be sent)
+//   - No authentication is needed, so "Credential": "None"
+//   - {Base} is the test site URL. ?date={Today:yyyy-MM-dd} in the URL is
+//     ignored by the server, but it lets you check that placeholders are replaced
+{
+  "Version": 2,
+
+  "Sources": [
+
+    // ----------------------------------------------------------------
+    // Read an HTML page (same parsing method as the default schedule site)
+    // ----------------------------------------------------------------
+    {
+      "Name": "Test schedule (GitHub Pages)",
+      "Kind": "Html",
+      "Credential": "None",
+      "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify",
+      "Request": {
+        "Url": "{Base}/schedule/day.en.html?date={Today:yyyy-MM-dd}",
+        "Method": "GET"
+      },
+      "Html": {
+        "RowSelector": ".aligned.inCompany",
+        "IssueId": { "Attribute": "data-href", "Prefix": "{Base}" },
+        "Title": { "Cell": 1 },
+        "Time": { "Cell": 0, "Split": "～", "SplitIndex": 0, "Prefix": "{Today} " }
+      },
+      // Notify only schedule items that have not started yet.
+      // Set to false to see notifications right away including past items (past times are notified immediately)
+      "OnlyFuture": true,
+      "ReplaceAll": false,
+      "IntervalSeconds": 300,
+      "RunTimes": "",
+      "NoticeMinutesBefore": 10
+    },
+
+    // ----------------------------------------------------------------
+    // Read JSON (same parsing method as the default task site)
+    // ----------------------------------------------------------------
+    {
+      "Name": "Test tasks (GitHub Pages)",
+      "Kind": "Json",
+      "Credential": "None",
+      "CredentialTarget": "https://msmsrep.github.io/TaskBoard-Notify",
+      "Request": {
+        "Url": "{Base}/api/tasks.en.json?date={Today:yyyy-MM-dd}",
+        "Method": "GET"
+      },
+      "Json": {
+        "ArrayPath": "Response.Data",
+        "IssueId": { "Path": "IssueId", "Prefix": "{Base}/items/detail.en.html?type=task&id=" },
+        "Title": { "Path": "Title" },
+        "Time": { "Path": "CompletionTime", "AsDateTime": true }
+      },
+      "OnlyFuture": false,
+      // Re-notify all items on every fetch
+      "ReplaceAll": true,
+      "IntervalSeconds": 60,
+      "RunTimes": "",
+      "NoticeMinutesBefore": 10
+    }
+
+  ]
+}

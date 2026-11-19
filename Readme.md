@@ -1,5 +1,7 @@
 # TaskBoard-Notify テストサイト
 
+日本語 | [English](Readme.en.md)
+
 Windows 用の予定・タスク通知アプリ **TaskBoard-Notify** を、接続先が無い場所でも試せるようにするための
 ダミーデータを GitHub Pages で配信しています。
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Details (test)</title>
+<style>
+  body { font-family: "Segoe UI", "Meiryo", sans-serif; margin: 2rem; color: #222; background: #fff; }
+  h1 { font-size: 1.2rem; }
+  .card { border: 1px solid #ccc; border-radius: 8px; padding: 1rem 1.2rem; max-width: 32rem; }
+  dl { display: grid; grid-template-columns: 7rem 1fr; gap: .4rem 1rem; margin: 0; font-size: .9rem; }
+  dt { color: #666; }
+  dd { margin: 0; font-weight: 600; }
+  p.note { color: #666; font-size: .85rem; }
+  code { background: #f2f4f7; padding: .1rem .3rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+<!--
+  English version of items/detail.html.
+  The page opened from "Open page" on a toast notification.
+  Used to check that the URL built from IssueId is passed correctly (that clicking opens the browser).
+  It holds no real data and simply shows the query string.
+-->
+<h1>Details (TaskBoard-Notify test)</h1>
+
+<div class="card">
+  <dl>
+    <dt>Type</dt><dd id="type">-</dd>
+    <dt>ID</dt><dd id="id">-</dd>
+    <dt>Opened at</dt><dd id="opened">-</dd>
+  </dl>
+</div>
+
+<p class="note">
+  If this page opens, the URL built for the toast's <code>action</code> argument was passed as is.<br>
+  <a href="../test.en.html">Back to the test site guide</a> /
+  <a id="ja" href="detail.html" lang="ja">日本語版</a>
+</p>
+
+<script>
+  const q = new URLSearchParams(location.search);
+  const label = { schedule: "Schedule", task: "Task" };
+  document.getElementById("type").textContent = label[q.get("type")] ?? (q.get("type") ?? "Unknown");
+  document.getElementById("id").textContent = q.get("id") ?? "Not specified";
+  document.getElementById("opened").textContent = new Date().toLocaleString("en-US");
+  document.getElementById("ja").search = location.search;
+</script>
+</body>
+</html>

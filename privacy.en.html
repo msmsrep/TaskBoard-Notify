@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy - TaskBoard-Notify</title>
+<link rel="alternate" hreflang="ja" href="https://msmsrep.github.io/TaskBoard-Notify/privacy.html">
+<link rel="alternate" hreflang="en" href="https://msmsrep.github.io/TaskBoard-Notify/privacy.en.html">
+<style>
+  :root { color-scheme: light dark; --fg: #1c1f23; --muted: #5d646d; --line: #d7dce2; --bg: #fff; --card: #f7f9fb; --accent: #1f6feb; --ok: #1a7f37; --ng: #b42318; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg: #e6e9ee; --muted: #9aa4b0; --line: #303740; --bg: #14171c; --card: #1b1f26; --accent: #6ea8fe; --ok: #4ac26b; --ng: #ff7b72; }
+  }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", "Meiryo", sans-serif; margin: 0 auto; padding: 2rem 1.2rem 4rem; max-width: 48rem; color: var(--fg); background: var(--bg); line-height: 1.8; }
+  h1 { font-size: 1.5rem; margin-bottom: .2rem; }
+  h2 { font-size: 1.1rem; margin-top: 2.4rem; border-bottom: 1px solid var(--line); padding-bottom: .3rem; }
+  h3 { font-size: .95rem; margin: 1.4rem 0 .3rem; }
+  p, li { font-size: .92rem; }
+  .lead { color: var(--muted); }
+  .updated { color: var(--muted); font-size: .85rem; margin-top: 0; }
+  code { background: var(--card); padding: .1rem .35rem; border-radius: 4px; font-size: .86rem; word-break: break-all; }
+  table { border-collapse: collapse; width: 100%; margin-top: .6rem; }
+  th, td { border: 1px solid var(--line); padding: .45rem .6rem; font-size: .85rem; text-align: left; vertical-align: top; }
+  th { background: var(--card); white-space: nowrap; }
+  .wrap { overflow-x: auto; }
+  a { color: var(--accent); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: .8rem 1rem; }
+  ul { padding-left: 1.2rem; }
+  footer { margin-top: 3rem; border-top: 1px solid var(--line); padding-top: 1rem; font-size: .82rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<p style="font-size:.85rem;margin:0"><a href="privacy.html" lang="ja" hreflang="ja">日本語</a></p>
+<h1>Privacy Policy</h1>
+<p class="updated">TaskBoard-Notify (developed and operated by msmsrep) / Last updated: August 12, 2026</p>
+<p class="lead" style="font-size:.85rem">
+  This is an English translation of the <a href="privacy.html" lang="ja" hreflang="ja">Japanese privacy policy</a>.
+</p>
+
+<p>
+  TaskBoard-Notify (the "App") is a schedule and task notification app for Windows.
+  It periodically fetches lists of schedule items and tasks from sources specified by the user, and notifies you with a toast notification before the start time.
+</p>
+<div class="card">
+  <p style="margin:0">
+    The App has no servers operated by the developer whatsoever.
+    No user information is sent to the developer; the App communicates <strong>only with the sources the user has configured</strong>.
+  </p>
+</div>
+
+<h2>1. Information collected by the developer</h2>
+<p>None. The App does none of the following.</p>
+<ul>
+  <li>User registration or account creation (it never asks you to enter your name, email address, etc.)</li>
+  <li>Usage analytics, access analytics, or collection of advertising identifiers</li>
+  <li>Automatic sending of crash reports or logs</li>
+  <li>Sending the contents of fetched schedule items and tasks, credentials, or settings to the developer</li>
+</ul>
+
+<h2>2. Information stored on the device</h2>
+<p>
+  The App stores the following information needed for its operation only on the user's device.
+  None of it is sent externally.
+</p>
+
+<div class="wrap">
+<table>
+  <thead><tr><th>What is stored</th><th>Contents</th><th>Storage format</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>sources.json</code></td>
+      <td>Source definitions (source URLs, fetch intervals, parsing methods, etc.)</td>
+      <td>Plain-text JSON</td>
+    </tr>
+    <tr>
+      <td><code>sources.previous.json</code></td>
+      <td>The contents just before the definition file was replaced by an import (a backup for restoring)</td>
+      <td>Plain-text JSON</td>
+    </tr>
+    <tr>
+      <td><code>credentials.json</code></td>
+      <td>User names, passwords and API keys used to authenticate with sources (only if the user registered them in the Settings screen)</td>
+      <td>Passwords and API keys are encrypted with Windows DPAPI (CurrentUser). Only the same Windows user can decrypt them; they cannot be decrypted even if copied to another user or another PC</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>The storage locations are as follows.</p>
+<ul>
+  <li>Store version / MSIX version: <code>%LOCALAPPDATA%\Packages\{package name}\LocalState</code></li>
+  <li>exe version (distributed without an installer): <code>%LOCALAPPDATA%\TaskBoard-Notify</code></li>
+</ul>
+<p class="lead">You can check the actual storage location from the App's Settings screen.</p>
+
+<p>
+  The contents of schedule items and tasks fetched from sources (title, time, and link URL) are kept
+  <strong>only in memory while the App is running</strong>, to determine whether they have already been notified.
+  They are not written to files and are lost when the App exits.
+</p>
+
+<h2>3. Communication</h2>
+<p>
+  Because the App's main function is fetching data from external servers, it communicates over the network.
+  However, it communicates <strong>only with the sources the user has written in the definition file (<code>sources.json</code>)</strong>.
+  No sources are built into the App in advance, and since there are 0 sources in the initial state, no communication occurs.
+</p>
+
+<h3>What is sent</h3>
+<ul>
+  <li>HTTP requests to the URLs written in the definition file (executed automatically at each configured fetch interval)</li>
+  <li>If a source requires login: the registered user name and password are sent to the login URL written in the definition file</li>
+  <li>If a source requires an API key: the registered API key is sent in the format written in the definition file (a request header or the request body)</li>
+</ul>
+<p>
+  All of these destinations, contents and timings are specified by the user in the definition file.
+  The developer can neither receive nor view the contents of these communications.
+</p>
+
+<h3>Security of communication</h3>
+<p>
+  Encryption of communication follows the scheme of the URL specified by the user.
+  If you specify <code>https://</code>, communication is encrypted; if you specify <code>http://</code>, it is not encrypted.
+  We recommend using <code>https://</code> for sources that handle credentials.
+</p>
+
+<h3>About the test site</h3>
+<p>
+  If you use "Add test sources" in the Settings screen, this site
+  (<code>https://msmsrep.github.io/TaskBoard-Notify</code>) is added as a source.
+  It serves only fixed data for testing, and no authentication is required.
+  This site is hosted on GitHub Pages (GitHub, Inc.), and technical records associated with access are handled
+  according to that company's policies. The developer has not set up any mechanism to identify visitors.
+</p>
+
+<h2>4. Disclosure to third parties</h2>
+<p>
+  The App never sells, shares, or provides user data to third parties.
+  Including when responding to disclosure requests based on laws and regulations, the developer does not hold any user data and therefore has no data to provide.
+</p>
+
+<h2>5. How to delete data</h2>
+<h3>Store version / MSIX version</h3>
+<p>
+  When you uninstall the App, the entire <code>LocalState</code> folder is deleted.
+  The stored data described above is deleted along with it.
+</p>
+
+<h3>exe version</h3>
+<p>
+  Even if you delete the App's files, the <code>%LOCALAPPDATA%\TaskBoard-Notify</code> folder remains.
+  To delete everything, delete this folder manually.
+</p>
+
+<h3>Deleting only credentials</h3>
+<p>
+  You can delete registered credentials individually for each source in the Settings screen.
+  You can delete just the passwords and API keys while continuing to use the App.
+</p>
+
+<h2>6. Contact</h2>
+<p>
+  Please send questions or requests regarding privacy to either of the following.
+</p>
+<ul>
+  <li>GitHub Issues: <a href="https://github.com/msmsrep/TaskBoard-Notify/issues">https://github.com/msmsrep/TaskBoard-Notify/issues</a> (posts are public; please do not include personal information)</li>
+  <!-- The Store submission may require a contact email address. Once you decide on an address that can be made public, uncomment the next line
+  <li>Email: <code>example@example.com</code></li>
+  -->
+</ul>
+
+<footer>
+  <a href="index.en.html">Back to the TaskBoard-Notify home page</a>
+</footer>
+
+</body>
+</html>

@@ -4,6 +4,7 @@
 //
 // 作られるファイル
 //   api/tasks.json         タスクサイト形式（Response.Data 配列）
+//   api/tasks.en.json      api/tasks.json の英語版（同じ形・同じ日時で、件名だけ英語）
 //   api/custom-tasks.json  独自形式（result.list 配列）
 //
 // GitHub Actions（.github/workflows/pages.yml）から毎日実行しているため、
@@ -43,14 +44,22 @@ const rows = [
   { IssueId: 3004, Title: "棚卸しの準備", CompletionTime: at(10, 30, 1) },
 ];
 
-const tasks = {
+// 英語版（api/tasks.en.json）の件名。IssueId と日時は rows と同じものを使います
+const titlesEn = {
+  3001: "Prepare a quote",
+  3002: "Submit the monthly report",
+  3003: 'Answer inquiry "URGENT"',
+  3004: "Prepare for inventory count",
+};
+
+const toTasks = (list) => ({
   Id: 0,
   StatusCode: 200,
   Response: {
     Offset: 0,
     PageSize: 200,
-    TotalCount: rows.length,
-    Data: rows.map((r) => ({
+    TotalCount: list.length,
+    Data: list.map((r) => ({
       IssueId: r.IssueId,
       SiteId: 2,
       Title: r.Title,
@@ -58,7 +67,10 @@ const tasks = {
       CompletionTime: r.CompletionTime,
     })),
   },
-};
+});
+
+const tasks = toTasks(rows);
+const tasksEn = toTasks(rows.map((r) => ({ ...r, Title: titlesEn[r.IssueId] })));
 
 // ---------------------------------------------------------------
 // 独自形式（項目名も配列の位置も既定と違うAPI）
@@ -79,6 +91,7 @@ const custom = {
 
 await mkdir(join(root, "api"), { recursive: true });
 await writeFile(join(root, "api", "tasks.json"), JSON.stringify(tasks, null, 2) + "\n", "utf8");
+await writeFile(join(root, "api", "tasks.en.json"), JSON.stringify(tasksEn, null, 2) + "\n", "utf8");
 await writeFile(join(root, "api", "custom-tasks.json"), JSON.stringify(custom, null, 2) + "\n", "utf8");
 
 // ---------------------------------------------------------------
